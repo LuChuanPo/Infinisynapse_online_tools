@@ -389,7 +389,7 @@ a.nav-btn:hover{
   <main class="wrap">
     <nav class="breadcrumb">
       <a href="https://infinisynapse.com/">Home</a><span>&#8250;</span>
-      <a href="../">Free Tools</a><span>&#8250;</span>
+      <a href="/online_tools">Free Tools</a><span>&#8250;</span>
       Database Compatibility Checker
     </nav>
 
@@ -500,10 +500,10 @@ a.nav-btn:hover{
 
     <h2>Related Tools</h2>
     <div class="related">
-      <a href="../nl2sql-query-tester/">NL2SQL Query Tester<span>Convert English questions into SQL examples</span></a>
-      <a href="../roi-calculator/">ROI Calculator<span>Estimate analytics time and cost savings</span></a>
-      <a href="../sql-complexity-checker/">SQL Complexity Checker<span>Review query structure and optimization risks</span></a>
-      <a href="../">All Free Tools<span>Browse the full InfiniSynapse tools directory</span></a>
+      <a href="/online_tools/nl2sql-query-tester">NL2SQL Query Tester<span>Convert English questions into SQL examples</span></a>
+      <a href="/online_tools/roi-calculator">ROI Calculator<span>Estimate analytics time and cost savings</span></a>
+      <a href="/online_tools/sql-complexity-checker">SQL Complexity Checker<span>Review query structure and optimization risks</span></a>
+      <a href="/online_tools">All Free Tools<span>Browse the full InfiniSynapse tools directory</span></a>
     </div>
   </main>
 
@@ -580,7 +580,7 @@ a.nav-btn:hover{
       result.innerHTML = '<div class="result-detail">Connecting to ' + escapeHtml(host) + ':' + port + '...</div>';
 
       try {
-        var resp = await fetch('/api/check-connection', {
+        var resp = await fetch('/online_tools/api/check-connection', {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({

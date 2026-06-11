@@ -1,5 +1,7 @@
 {
-  "outputDirectory": "online_tools",
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/online_tools/api/check-connection", "destination": "/api/check-connection" }
+  ]
 }

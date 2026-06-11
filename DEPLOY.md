@@ -38,12 +38,20 @@
     { "source": "/online_tools/:path*", "destination": "https://<你的项目>.vercel.app/online_tools/:path*" }
   ]}
   ```
-- 客户用 Nginx：
+- 客户用 Nginx：直接用同目录下的完整配置文件 `infinisynapse-online_tools.nginx.conf`
+  （已含 SNI、跳转回写、POST 透传、超时等),把里面的 `location ^~ /online_tools { ... }`
+  整段粘进 `infinisynapse.com` 的 server 块,`nginx -t` 通过后 `nginx -s reload`：
   ```nginx
-  location /online_tools/ {
-    proxy_pass https://<你的项目>.vercel.app/online_tools/;
-    proxy_set_header Host <你的项目>.vercel.app;
+  location ^~ /online_tools {
+    proxy_pass https://infinisynapse-online-tools.vercel.app;
+    proxy_set_header Host infinisynapse-online-tools.vercel.app;
     proxy_ssl_server_name on;
+    proxy_redirect https://infinisynapse-online-tools.vercel.app/ /;
+    proxy_set_header X-Forwarded-Host  $host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_http_version 1.1;
+    proxy_set_header   Connection "";
   }
   ```
 - 客户用 Cloudflare：加一条 Origin Rule / Worker，把 `infinisynapse.com/online_tools/*`
