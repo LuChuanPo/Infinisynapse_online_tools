@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Compatibility Checker for Teams | InfiniSynapse</title>
+  <meta name="description" content="Use this database compatibility checker to test PostgreSQL, MySQL, Redshift, MariaDB, Snowflake, ClickHouse, SQL Server, Oracle, and more endpoints.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="InfiniSynapse">
+  <meta property="og:title" content="Database Compatibility Checker for Teams | InfiniSynapse">
+  <meta property="og:description" content="Use this database compatibility checker to test PostgreSQL, MySQL, Redshift, MariaDB, Snowflake, ClickHouse, SQL Server, Oracle, and more endpoints.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://infinisynapse.com/online_tools/db-compatibility-checker">
+  <meta property="og:image" content="https://infinisynapse.com/og/Infinisynapse_og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@InfiniSynapse">
+  <meta name="twitter:title" content="Database Compatibility Checker for Teams | InfiniSynapse">
+  <meta name="twitter:description" content="Use this database compatibility checker to test PostgreSQL, MySQL, Redshift, MariaDB, Snowflake, ClickHouse, SQL Server, Oracle, and more endpoints.">
+  <meta name="twitter:image" content="https://infinisynapse.com/og/Infinisynapse_og.png">
+  <link rel="canonical" href="https://infinisynapse.com/online_tools/db-compatibility-checker">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://infinisynapse.com/#organization",
+        "name": "InfiniSynapse",
+        "url": "https://infinisynapse.com/",
+        "logo": "https://infinisynapse.com/logo.png"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://infinisynapse.com/online_tools/db-compatibility-checker#breadcrumb",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://infinisynapse.com/"},
+          {"@type": "ListItem", "position": 2, "name": "Free Tools", "item": "https://infinisynapse.com/online_tools"},
+          {"@type": "ListItem", "position": 3, "name": "Database Compatibility Checker", "item": "https://infinisynapse.com/online_tools/db-compatibility-checker"}
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://infinisynapse.com/online_tools/db-compatibility-checker#software",
+        "name": "Database Compatibility Checker",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "description": "Database compatibility checker for testing PostgreSQL, MySQL-compatible engines, PostgreSQL-compatible warehouses, and TCP reachability for common database endpoints.",
+        "url": "https://infinisynapse.com/online_tools/db-compatibility-checker",
+        "datePublished": "2026-06-02",
+        "dateModified": "2026-06-11",
+        "publisher": {"@id": "https://infinisynapse.com/#organization"},
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://infinisynapse.com/online_tools/db-compatibility-checker#faq",
+        "mainEntity": [
+          {"@type": "Question", "name": "What does this database compatibility checker test?", "acceptedAnswer": {"@type": "Answer", "text": "For PostgreSQL-compatible and MySQL-compatible engines, it sends a one-time request to check endpoint reachability and authentication. For Snowflake, ClickHouse, Databricks, SQL Server, Oracle, and MongoDB, it tests TCP reachability only."}},
+          {"@type": "Question", "name": "Are credentials stored?", "acceptedAnswer": {"@type": "Answer", "text": "No. Credentials are sent only in the one-time request to the test endpoint and are not stored by this page. Use temporary or limited-privilege credentials when testing production environments."}},
+          {"@type": "Question", "name": "Why did my firewall or private database fail?", "acceptedAnswer": {"@type": "Answer", "text": "Private networks often block requests from public serverless infrastructure. Check security groups, public endpoint settings, allowlists, SSL requirements, or use a private tunnel in your production setup."}},
+          {"@type": "Question", "name": "Why is BigQuery not listed?", "acceptedAnswer": {"@type": "Answer", "text": "BigQuery does not expose a normal database host and port for this style of connectivity check. It should be connected with Google Cloud project and service account settings inside the product setup flow."}},
+          {"@type": "Question", "name": "What should I do after a successful database compatibility check?", "acceptedAnswer": {"@type": "Answer", "text": "A successful auth test means credentials and basic connectivity work. A successful TCP-only test means the endpoint is reachable, but credentials and permissions still need to be verified in the target system."}}
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;color:#1F2937;background:#FFFFFF;font-size:16.5px;line-height:1.75;-webkit-font-smoothing:antialiased}
+    a{color:#5B5BFF;text-decoration:none}
+    a:hover{color:#4B4BDF}
+      .nav{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:#FFFFFF;
+  border-bottom:1px solid #EEF0F4;
+  padding:12px 0;
+}
+
+.nav-inner{
+  max-width:1320px;
+  margin:0 auto;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  column-gap:36px;
+}
+
+.nav-logo{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+}
+
+.nav-logo-mark{
+  height:26px;
+  display:flex;
+  align-items:center;
+}
+
+.nav-logo-mark img{
+  height:26px;
+  width:auto;
+  display:block;
+}
+
+.nav-logo span{
+  font-size:22px;
+  font-weight:700;
+  color:#0B1220;
+  letter-spacing:-0.03em;
+  line-height:1;
+  white-space:nowrap;
+}
+
+.nav-menu{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:24px;
+  min-width:0;
+  margin:0;
+}
+
+.nav-menu a{
+  color:#344054;
+  font-size:15px;
+  font-weight:500;
+  line-height:1;
+  white-space:nowrap;
+  transition:color 0.15s;
+}
+
+.nav-menu a:hover{
+  color:#111827;
+}
+
+.nav-actions{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:10px;
+  min-width:0;
+}
+
+.nav-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:38px;
+  padding:0 15px;
+  border-radius:9px;
+  border:1px solid #D9DEE8;
+  background:#FFFFFF;
+  color:#25314A;
+  font-size:15px;
+  font-weight:600;
+  line-height:1;
+  white-space:nowrap;
+  box-shadow:none;
+  transition:background 0.15s,border-color 0.15s,transform 0.15s;
+}
+
+a.nav-btn:hover{
+  color:#111827;
+  border-color:#C7CEDA;
+  transform:translateY(-1px);
+}
+
+.nav-btn-soft{
+  background:#F4F5F7;
+  border-color:#F4F5F7;
+  cursor:default;
+}
+
+.nav-btn-primary{
+  background:linear-gradient(135deg,#2459FF,#5337FF);
+  border-color:transparent;
+  color:#FFFFFF;
+  padding:0 18px;
+  box-shadow:0 7px 16px rgba(45,72,255,0.24);
+}
+
+.nav-btn-primary:hover{
+  color:#FFFFFF;
+}
+
+.nav-btn-dark{
+  background:#000000;
+  border-color:#000000;
+  color:#FFFFFF;
+  border-radius:999px;
+  padding:0 18px;
+}
+
+.nav-btn-dark:hover{
+  color:#FFFFFF;
+}
+
+.nav-icon{
+  width:17px;
+  height:17px;
+  flex:0 0 auto;
+}
+
+.nav-chevron{
+  width:15px;
+  height:15px;
+  flex:0 0 auto;
+}
+
+@media(max-width:1280px){
+  .nav-inner{
+    max-width:1180px;
+    column-gap:24px;
+  }
+
+  .nav-menu{
+    gap:18px;
+  }
+
+  .nav-menu a,
+  .nav-btn{
+    font-size:14px;
+  }
+
+  .nav-btn{
+    min-height:36px;
+    padding:0 12px;
+  }
+
+  .nav-btn-primary,
+  .nav-btn-dark{
+    padding:0 14px;
+  }
+}
+
+@media(max-width:980px){
+  .nav-inner{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    row-gap:14px;
+  }
+
+  .nav-logo{
+    width:100%;
+    justify-content:center;
+  }
+
+  .nav-menu,
+  .nav-actions{
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+}
+    .wrap{max-width:1024px;margin:0 auto;padding:48px 24px}
+    .breadcrumb{font-size:13px;color:#9CA3AF;margin-bottom:10px}
+    .breadcrumb a{color:#6B7280}
+    .breadcrumb span{margin:0 5px}
+    .badge{display:inline-block;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;margin:0 8px 14px 0}
+    .badge-client{background:rgba(91,91,255,0.08);color:#5B5BFF;border:1px solid rgba(91,91,255,0.25)}
+    .badge-cat{background:#F3F4F6;color:#6B7280;border:1px solid #E5E7EB}
+    h1{font-size:2.2rem;font-weight:700;color:#0A0A0A;letter-spacing:-0.02em;line-height:1.25;margin-bottom:12px}
+    h2{font-size:1.45rem;font-weight:700;color:#111827;border-bottom:1px solid #E5E7EB;padding-bottom:10px;margin:42px 0 20px}
+    h3{font-size:1.1rem;font-weight:600;color:#0A0A0A;margin:24px 0 10px}
+    p{color:#374151;margin-bottom:16px;line-height:1.75}
+    .meta-desc{font-size:1.05rem;color:#6B7280;margin-bottom:28px;line-height:1.7}
+    code{background:rgba(91,91,255,0.06);padding:2px 7px;border-radius:4px;font-size:0.9em;color:#5B5BFF}
+    .db-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin:20px 0}
+    .db-card{padding:16px 14px;border:2px solid #E5E7EB;border-radius:10px;cursor:pointer;text-align:center;transition:all 0.2s;user-select:none;background:#FFF;position:relative}
+    .db-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.04);border-color:#5B5BFF}
+    .db-icon{font-size:24px;margin-bottom:6px}
+    .db-name{font-weight:600;font-size:14px;color:#0A0A0A}
+    .db-status{font-size:11px;font-weight:600;margin-top:4px}
+    .db-status.full{color:#059669}.db-status.beta{color:#D97706}.db-status.planned{color:#6B7280}
+    .test-badge{position:absolute;top:-6px;right:-6px;background:#5B5BFF;color:#FFF;font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;opacity:0;transition:opacity 0.2s}
+    .db-card:hover .test-badge{opacity:1}
+    .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px}
+    .dot.full{background:#10B981}.dot.beta{background:#F59E0B}.dot.planned{background:#9CA3AF}
+    .legend{display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:#6B7280;margin:8px 0 20px}
+    .legend-item{display:flex;align-items:center;gap:6px}
+    .note{font-size:13px;color:#6B7280;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:12px 14px;margin:14px 0 24px}
+    .step-box{border:1px solid #E5E7EB;border-radius:10px;padding:18px 20px;margin:12px 0;background:#FFF}
+    .step-num{display:inline-flex;width:28px;height:28px;border-radius:50%;background:#0A0A0A;color:#FFF;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin-right:10px}
+    .compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+    .compare-table th{background:#F9FAFB;padding:12px 14px;text-align:left;font-weight:600;color:#374151;border-bottom:2px solid #E5E7EB}
+    .compare-table td{padding:12px 14px;border-bottom:1px solid #E5E7EB;color:#374151}
+    .faq-item{border-bottom:1px solid #E5E7EB;padding:16px 0}
+    .faq-q{font-weight:600;color:#0A0A0A;font-size:15px;margin-bottom:6px}
+    .faq-a{color:#6B7280;font-size:14px;line-height:1.7}
+    .cta-box{background:linear-gradient(135deg,#0A0A0A 0%,#1F2937 100%);border-radius:16px;padding:40px;text-align:center;margin:40px 0}
+    .cta-box h3{color:#FFF;margin-top:0}.cta-box p{color:#D1D5DB}
+    .cta-btn{display:inline-flex;align-items:center;background:#5B5BFF;color:#FFF;padding:13px 30px;border-radius:8px;font-weight:600}
+    .related{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:16px 0 40px}
+    .related a{border:1px solid #E5E7EB;border-radius:10px;padding:16px;color:#0A0A0A;font-weight:600;background:#FFF}
+    .related span{display:block;color:#6B7280;font-size:13px;font-weight:400;margin-top:4px}
+    .footer{border-top:1px solid #E5E7EB;margin-top:40px;padding:40px 0;background:#FAFAFA}
+    .footer-inner{max-width:1024px;margin:0 auto;padding:0 24px}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px}
+    .footer h4{font-size:14px;font-weight:600;color:#0A0A0A;margin-bottom:12px}
+    .footer-links{display:flex;flex-direction:column;gap:8px;font-size:14px}
+    .footer-links a{color:#6B7280}.footer-bottom{display:flex;justify-content:space-between;padding-top:24px;border-top:1px solid #E5E7EB;font-size:13px;color:#9CA3AF}
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+    .modal-overlay.show{display:flex}
+    .modal{background:#FFF;border-radius:16px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #E5E7EB}
+    .modal-header h3{font-size:18px;margin:0}
+    .modal-close{width:32px;height:32px;border-radius:50%;border:1px solid #E5E7EB;background:#FFF;cursor:pointer;font-size:18px;color:#6B7280}
+    .modal-body{padding:24px}.modal-body label{display:block;font-size:13px;font-weight:600;color:#374151;margin-bottom:6px;margin-top:16px}.modal-body label:first-child{margin-top:0}
+    .modal-body input{width:100%;padding:11px 14px;border:1.5px solid #D1D5DB;border-radius:8px;font-size:15px;font-family:inherit;outline:none}
+    .input-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.input-hint{font-size:12px;color:#9CA3AF;margin-top:4px}
+    .auth-fields.hidden{display:none}
+    .mode-note{font-size:13px;color:#374151;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:10px 12px;margin:14px 0 4px}
+    .modal-footer{display:flex;justify-content:flex-end;gap:10px;padding:18px 24px;border-top:1px solid #E5E7EB}
+    .btn-skip,.btn-submit{border:none;border-radius:8px;padding:11px 18px;font-weight:600;cursor:pointer}
+    .btn-skip{background:#F3F4F6;color:#374151}.btn-submit{background:#5B5BFF;color:#FFF}
+    .test-result{display:none;margin-top:20px;padding:18px;border-radius:10px;border:1px solid #E5E7EB;background:#F9FAFB}
+    .test-result.show{display:block}.test-result.success{border-color:#10B981;background:rgba(16,185,129,0.04)}.test-result.fail{border-color:#EF4444;background:rgba(239,68,68,0.04)}
+    .result-icon{font-size:28px;text-align:center}.result-title{text-align:center;font-weight:700;color:#0A0A0A;margin-top:4px}.result-detail{font-size:14px;color:#374151;margin-top:10px}
+    .result-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.result-meta span{font-size:12px;background:#FFF;border:1px solid #E5E7EB;border-radius:20px;padding:4px 10px}
+    .spinner-sm{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.4);border-top-color:#FFF;border-radius:50%;animation:spin 0.8s linear infinite;vertical-align:-2px}@keyframes spin{to{transform:rotate(360deg)}}
+    .results{display:none;border:1px solid #E5E7EB;border-radius:12px;background:#F9FAFB;padding:20px;margin:24px 0}.results.show{display:block}
+    .db-detail{background:#FFF;border:1px solid #E5E7EB;border-radius:10px;padding:14px;margin-top:10px}.db-detail-header{display:flex;justify-content:space-between;gap:12px}.db-detail-name{font-weight:700}.db-detail-tested.pass{color:#059669}.db-detail-tested.fail{color:#DC2626}
+    @media(max-width:760px){.nav-links a:not(.nav-cta){display:none}.wrap{padding:32px 20px}h1{font-size:1.9rem}.db-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr 1fr}.footer-bottom{flex-direction:column;gap:8px}.input-row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://infinisynapse.com" class="nav-logo" aria-label="InfiniSynapse home">
+      <span class="nav-logo-mark">
+        <img src="https://infinisynapse.com/logo.png" alt="InfiniSynapse">
+      </span>
+      <span>InfiniSynapse</span>
+    </a>
+
+    <div class="nav-menu" aria-label="Primary navigation">
+      <a href="https://infinisynapse.com/#vision">Vision</a>
+      <a href="https://infinisynapse.com/#features">Features</a>
+      <a href="https://infinisynapse.com/tools">Agent Tools</a>
+      <a href="https://infinisynapse.com/en/docs">Docs</a>
+      <a href="https://infinisynapse.com/en/blog">Blog</a>
+      <a href="https://infinisynapse.com/#contact">Contact</a>
+    </div>
+
+    <div class="nav-actions">
+      <span class="nav-btn nav-btn-soft" aria-label="Language selector placeholder">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          <path d="M3 12h18M12 3c2.2 2.4 3.3 5.4 3.3 9S14.2 18.6 12 21M12 3C9.8 5.4 8.7 8.4 8.7 12S9.8 18.6 12 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        EN
+        <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+
+      <a href="https://infinisynapse.com/download" class="nav-btn">Download</a>
+
+      <a href="https://infinisynapse.com/book-demo" class="nav-btn nav-btn-primary">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 3v4M16 3v4M4 10h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Book Demo
+      </a>
+
+      <a href="https://app.infinisynapse.com/" class="nav-btn nav-btn-dark">Try Online</a>
+
+      <a href="https://app.infinisynapse.com/login" class="nav-btn">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Login
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <main class="wrap">
+    <nav class="breadcrumb">
+      <a href="https://infinisynapse.com/">Home</a><span>&#8250;</span>
+      <a href="https://infinisynapse.com/online_tools">Free Tools</a><span>&#8250;</span>
+      Database Compatibility Checker
+    </nav>
+
+    <div><span class="badge badge-client">InfiniSynapse</span><span class="badge badge-cat">Free tool · connection readiness</span></div>
+    <h1>Database Compatibility Checker</h1>
+    <p class="meta-desc">Choose a database, enter the endpoint details, and run the right compatibility check before connecting your data stack to an analytics workflow.</p>
+    <p class="note"><strong>Security note:</strong> PostgreSQL, MySQL, MariaDB, Redshift, and CockroachDB use a one-time authentication test. Snowflake, ClickHouse, Databricks, SQL Server, Oracle, and MongoDB use TCP reachability only. This page does not store credentials.</p>
+
+    <div class="db-grid">
+      <div class="db-card" onclick="openModal('postgresql')"><div class="test-badge">AUTH</div><div class="db-icon">PG</div><div class="db-name">PostgreSQL</div><div class="db-status full"><span class="dot full"></span>Login test</div></div>
+      <div class="db-card" onclick="openModal('mysql')"><div class="test-badge">AUTH</div><div class="db-icon">MY</div><div class="db-name">MySQL</div><div class="db-status full"><span class="dot full"></span>Login test</div></div>
+      <div class="db-card" onclick="openModal('mariadb')"><div class="test-badge">AUTH</div><div class="db-icon">MA</div><div class="db-name">MariaDB</div><div class="db-status full"><span class="dot full"></span>Login test</div></div>
+      <div class="db-card" onclick="openModal('redshift')"><div class="test-badge">AUTH</div><div class="db-icon">RS</div><div class="db-name">Redshift</div><div class="db-status full"><span class="dot full"></span>PG driver</div></div>
+      <div class="db-card" onclick="openModal('cockroachdb')"><div class="test-badge">AUTH</div><div class="db-icon">CR</div><div class="db-name">CockroachDB</div><div class="db-status full"><span class="dot full"></span>PG driver</div></div>
+      <div class="db-card" onclick="openModal('snowflake')"><div class="test-badge">TCP</div><div class="db-icon">SF</div><div class="db-name">Snowflake</div><div class="db-status beta"><span class="dot beta"></span>Port check</div></div>
+      <div class="db-card" onclick="openModal('clickhouse')"><div class="test-badge">TCP</div><div class="db-icon">CH</div><div class="db-name">ClickHouse</div><div class="db-status beta"><span class="dot beta"></span>Port check</div></div>
+      <div class="db-card" onclick="openModal('databricks')"><div class="test-badge">TCP</div><div class="db-icon">DB</div><div class="db-name">Databricks SQL</div><div class="db-status beta"><span class="dot beta"></span>Port check</div></div>
+      <div class="db-card" onclick="openModal('mssql')"><div class="test-badge">TCP</div><div class="db-icon">MS</div><div class="db-name">SQL Server</div><div class="db-status beta"><span class="dot beta"></span>Port check</div></div>
+      <div class="db-card" onclick="openModal('oracle')"><div class="test-badge">TCP</div><div class="db-icon">OR</div><div class="db-name">Oracle</div><div class="db-status beta"><span class="dot beta"></span>Port check</div></div>
+      <div class="db-card" onclick="openModal('mongodb')"><div class="test-badge">TCP</div><div class="db-icon">MO</div><div class="db-name">MongoDB</div><div class="db-status beta"><span class="dot beta"></span>Port check</div></div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="dot full"></span>Auth test: validates endpoint and credentials</div>
+      <div class="legend-item"><span class="dot beta"></span>TCP test: validates host and port reachability only</div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="modalTitle">Test database compatibility</h3>
+          <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <label for="dbHost">Host or endpoint</label>
+          <input type="text" id="dbHost" placeholder="db.example.com or 10.0.1.50">
+          <div class="input-hint" id="hostHint">Use a reachable host or public endpoint.</div>
+
+          <div class="input-row">
+            <div><label for="dbPort">Port</label><input type="number" id="dbPort" placeholder="5432"></div>
+          </div>
+
+          <div class="mode-note" id="modeNote"></div>
+
+          <div class="auth-fields" id="authFields">
+            <div class="input-row">
+              <div><label for="dbUser">Username</label><input type="text" id="dbUser" placeholder="postgres"></div>
+              <div><label for="dbPass">Password</label><input type="password" id="dbPass" placeholder="Used for this one-time test"></div>
+            </div>
+            <div>
+              <label for="dbName">Database</label>
+              <input type="text" id="dbName" placeholder="analytics">
+            </div>
+          </div>
+          <div class="input-hint" id="portHint"></div>
+          <div class="input-hint" id="credentialHint" style="color:#B45309;margin-top:8px">Credentials are used only for this test request and are not stored by this page.</div>
+
+          <div class="test-result" id="testResult"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-skip" onclick="closeModal()">Cancel</button>
+          <button class="btn-submit" id="btnSubmit" onclick="testConnection()">Test Connection</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="results" id="results"></div>
+
+    <h2>How to Use</h2>
+    <div class="step-box"><span class="step-num">1</span><strong>Choose the database type</strong><p>Auth-test databases ask for credentials. TCP-test databases only ask for host and port.</p></div>
+    <div class="step-box"><span class="step-num">2</span><strong>Enter the endpoint</strong><p>Use the same host and port your app or BI tool would use. For private networks, test from the same network path you plan to use in production.</p></div>
+    <div class="step-box"><span class="step-num">3</span><strong>Read the result correctly</strong><p>Auth success means login worked. TCP success only means the endpoint is reachable; credentials and permissions still need a product-side setup check.</p></div>
+
+    <h2>Supported Database Workflows</h2>
+    <div style="overflow-x:auto">
+      <table class="compare-table">
+        <tr><th>Database</th><th>Checker behavior</th><th>What a pass means</th><th>Default port</th></tr>
+        <tr><td><strong>PostgreSQL</strong></td><td>Driver authentication test</td><td>Endpoint is reachable and credentials work</td><td>5432</td></tr>
+        <tr><td><strong>MySQL</strong></td><td>Driver authentication test</td><td>Endpoint is reachable and credentials work</td><td>3306</td></tr>
+        <tr><td><strong>MariaDB</strong></td><td>MySQL-compatible authentication test</td><td>Endpoint is reachable and credentials work</td><td>3306</td></tr>
+        <tr><td><strong>Amazon Redshift</strong></td><td>PostgreSQL-compatible authentication test</td><td>Cluster endpoint is reachable and credentials work</td><td>5439</td></tr>
+        <tr><td><strong>CockroachDB</strong></td><td>PostgreSQL-compatible authentication test</td><td>Endpoint is reachable and credentials work</td><td>26257</td></tr>
+        <tr><td><strong>Snowflake</strong></td><td>TCP reachability test</td><td>Account endpoint is reachable; auth still needs platform setup</td><td>443</td></tr>
+        <tr><td><strong>ClickHouse</strong></td><td>TCP reachability test</td><td>HTTP/TCP endpoint is reachable; auth is not validated</td><td>8123</td></tr>
+        <tr><td><strong>Databricks SQL</strong></td><td>TCP reachability test</td><td>Workspace endpoint is reachable; token auth is not validated</td><td>443</td></tr>
+        <tr><td><strong>SQL Server</strong></td><td>TCP reachability test</td><td>Server port is reachable; login/encryption are not validated</td><td>1433</td></tr>
+        <tr><td><strong>Oracle</strong></td><td>TCP reachability test</td><td>Listener port is reachable; service name and wallet are not validated</td><td>1521</td></tr>
+        <tr><td><strong>MongoDB</strong></td><td>TCP reachability test</td><td>MongoDB port is reachable; auth and replica options are not validated</td><td>27017</td></tr>
+      </table>
+    </div>
+
+    <h2>FAQ</h2>
+    <div class="faq-item"><div class="faq-q">What does this database compatibility checker test?</div><div class="faq-a">For PostgreSQL-compatible and MySQL-compatible engines, it sends a one-time request to check endpoint reachability and authentication. For Snowflake, ClickHouse, Databricks, SQL Server, Oracle, and MongoDB, it tests TCP reachability only.</div></div>
+    <div class="faq-item"><div class="faq-q">Are credentials stored?</div><div class="faq-a">No. Credentials are sent only in the one-time auth request and are not stored by this page. TCP-only checks do not ask for usernames or passwords.</div></div>
+    <div class="faq-item"><div class="faq-q">Why did my firewall or private database fail?</div><div class="faq-a">Private networks often block requests from public serverless infrastructure. Check security groups, public endpoint settings, allowlists, SSL requirements, or use a private tunnel in your production setup.</div></div>
+    <div class="faq-item"><div class="faq-q">Why is BigQuery not listed?</div><div class="faq-a">BigQuery does not expose a normal database host and port for this style of connectivity check. Connect BigQuery through Google Cloud project and service account settings in the product setup flow.</div></div>
+    <div class="faq-item"><div class="faq-q">What should I do after a successful database compatibility check?</div><div class="faq-a">A successful auth test means credentials and basic connectivity work. A successful TCP-only test means the endpoint is reachable, but credentials and permissions still need to be verified in the target system.</div></div>
+
+    <h2>Methodology and Disclosure</h2>
+    <p>This database compatibility checker is maintained by InfiniSynapse. Links to InfiniSynapse are first-party product links, and the tool is intended to help evaluate connection readiness before using the InfiniSynapse app.</p>
+    <p>The page was last reviewed on June 11, 2026. Visible copy, FAQ answers, and structured data distinguish credential-based driver tests from TCP-only checks so the page does not overstate what is being tested.</p>
+
+    <div class="cta-box">
+      <h3>Ready to connect your data?</h3>
+      <p>After the compatibility check, connect your database in InfiniSynapse and validate schema discovery with a limited-permission account.</p>
+      <a href="https://infinisynapse.com/app/" class="cta-btn">Try InfiniSynapse Free</a>
+    </div>
+
+    <h2>Related Tools</h2>
+    <div class="related">
+      <a href="https://infinisynapse.com/online_tools/nl2sql-query-tester">NL2SQL Query Tester<span>Convert English questions into SQL examples</span></a>
+      <a href="https://infinisynapse.com/online_tools/roi-calculator">ROI Calculator<span>Estimate analytics time and cost savings</span></a>
+      <a href="https://infinisynapse.com/online_tools/sql-complexity-checker">SQL Complexity Checker<span>Review query structure and optimization risks</span></a>
+      <a href="https://infinisynapse.com/online_tools">All Free Tools<span>Browse the full InfiniSynapse tools directory</span></a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div><h4>InfiniSynapse</h4><div class="footer-links"><span style="color:#6B7280;font-size:14px">Agentic analytics platform. From question to insight, in seconds.</span></div></div>
+        <div><h4>Product</h4><div class="footer-links"><a href="https://infinisynapse.com/#features">Features</a><a href="https://infinisynapse.com/online_tools">Tools</a><a href="https://infinisynapse.com/app/">Try Online</a></div></div>
+        <div><h4>Resources</h4><div class="footer-links"><a href="https://infinisynapse.com/zh/docs">Documentation</a><a href="https://infinisynapse.com/zh/blog">Blog</a></div></div>
+        <div><h4>Company</h4><div class="footer-links"><a href="https://infinisynapse.com/#contact">Contact</a></div></div>
+      </div>
+      <div class="footer-bottom"><span>&copy; 2026 InfiniSynapse. All rights reserved.</span><span>From question to insight, in seconds.</span></div>
+    </div>
+  </footer>
+
+  <script>
+    var DB_CONFIG = {
+      postgresql:{label:"PostgreSQL",port:5432,defaultUser:"postgres",mode:"auth",hint:"Example: db.example.com or an RDS PostgreSQL endpoint."},
+      mysql:{label:"MySQL",port:3306,defaultUser:"root",mode:"auth",hint:"Example: mysql.example.com or an RDS MySQL endpoint."},
+      mariadb:{label:"MariaDB",port:3306,defaultUser:"root",mode:"auth",hint:"Use the MariaDB host that accepts MySQL-compatible connections."},
+      redshift:{label:"Amazon Redshift",port:5439,defaultUser:"awsuser",mode:"auth",hint:"Use the Redshift cluster endpoint, not the AWS console URL."},
+      cockroachdb:{label:"CockroachDB",port:26257,defaultUser:"root",mode:"auth",hint:"Use the SQL endpoint. Serverless clusters may require SSL configuration."},
+      snowflake:{label:"Snowflake",port:443,defaultUser:"",mode:"tcp",hint:"Use your account endpoint, for example xy12345.us-east-1.snowflakecomputing.com."},
+      clickhouse:{label:"ClickHouse",port:8123,defaultUser:"",mode:"tcp",hint:"Use the HTTP endpoint for port 8123 or change to your native TCP port."},
+      databricks:{label:"Databricks SQL",port:443,defaultUser:"",mode:"tcp",hint:"Use the workspace hostname, without https://."},
+      mssql:{label:"SQL Server",port:1433,defaultUser:"",mode:"tcp",hint:"Use the SQL Server host or Azure SQL endpoint."},
+      oracle:{label:"Oracle",port:1521,defaultUser:"",mode:"tcp",hint:"Use the listener host. Service name and wallet are not checked here."},
+      mongodb:{label:"MongoDB",port:27017,defaultUser:"",mode:"tcp",hint:"Use the MongoDB host. Replica set and auth options are not checked here."}
+    };
+    var currentDB = null;
+    var testedResults = {};
+
+    function openModal(dbtype) {
+      currentDB = dbtype;
+      var db = DB_CONFIG[dbtype];
+      document.getElementById('modalTitle').textContent = 'Test ' + db.label + ' Compatibility';
+      document.getElementById('dbHost').value = '';
+      document.getElementById('dbPort').value = db.port || 5432;
+      document.getElementById('dbUser').value = db.defaultUser || '';
+      document.getElementById('dbPass').value = '';
+      document.getElementById('dbName').value = '';
+      document.getElementById('hostHint').textContent = db.hint || 'Use a reachable host or public endpoint.';
+      document.getElementById('portHint').textContent = 'Default port for ' + db.label + ': ' + (db.port || 'N/A') + '. Change it if your endpoint uses a custom port.';
+      document.getElementById('modeNote').textContent = db.mode === 'auth'
+        ? 'Auth test: checks network reachability and verifies the supplied username, password, and database.'
+        : 'TCP test: checks whether the host and port can be reached. It does not validate username, password, database name, schema, or query permissions.';
+      document.getElementById('authFields').classList.toggle('hidden', db.mode !== 'auth');
+      document.getElementById('credentialHint').style.display = db.mode === 'auth' ? 'block' : 'none';
+      document.getElementById('testResult').className = 'test-result';
+      document.getElementById('testResult').style.display = 'none';
+      document.getElementById('btnSubmit').disabled = false;
+      document.getElementById('btnSubmit').textContent = db.mode === 'auth' ? 'Test Login' : 'Test TCP Port';
+      document.getElementById('modalOverlay').classList.add('show');
+      setTimeout(function(){ document.getElementById('dbHost').focus(); }, 150);
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('show');
+      currentDB = null;
+    }
+
+    async function testConnection() {
+      var host = document.getElementById('dbHost').value.trim();
+      var db = DB_CONFIG[currentDB];
+      var port = parseInt(document.getElementById('dbPort').value, 10) || db.port;
+      var btn = document.getElementById('btnSubmit');
+      var result = document.getElementById('testResult');
+      if (!host) { alert('Please enter a host or endpoint.'); return; }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-sm"></span> Testing...';
+      result.style.display = 'block';
+      result.className = 'test-result show';
+      result.innerHTML = '<div class="result-detail">Connecting to ' + escapeHtml(host) + ':' + port + '...</div>';
+
+      try {
+        var resp = await fetch('/online_tools/api/check-connection', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            host: host,
+            port: port,
+            dbtype: currentDB,
+            user: document.getElementById('dbUser').value,
+            password: document.getElementById('dbPass').value,
+            database: document.getElementById('dbName').value
+          })
+        });
+        var data = await resp.json();
+        showResult(data, host, port);
+      } catch(e) {
+        result.innerHTML = '<div class="result-icon">X</div><div class="result-title">Request Failed</div><div class="result-detail">Could not reach the testing server. Try again later.</div>';
+        result.className = 'test-result show fail';
+      }
+      btn.disabled = false;
+      btn.textContent = db.mode === 'auth' ? 'Test Login' : 'Test TCP Port';
+    }
+
+    function showResult(data, host, port) {
+      var result = document.getElementById('testResult');
+      var hasAuthResult = data.authenticated !== undefined;
+      var pass = hasAuthResult ? (data.reachable && data.authenticated) : data.reachable;
+      result.className = 'test-result show ' + (pass ? 'success' : 'fail');
+
+      var title;
+      if (pass && data.testType === 'auth') title = 'Connected and Authenticated';
+      else if (pass && data.testType === 'tcp') title = 'TCP Endpoint Reachable';
+      else if (hasAuthResult && data.reachable) title = 'Authentication Failed';
+      else title = 'Connection Not Confirmed';
+      var meta = '<span>Host: ' + escapeHtml(data.host || host) + '</span><span>Port: ' + escapeHtml(String(data.port || port)) + '</span>';
+      if (data.testType) meta += '<span>Test: ' + escapeHtml(data.testType.toUpperCase()) + '</span>';
+      if (data.latencyMs !== undefined) meta += '<span>Latency: ' + escapeHtml(String(data.latencyMs)) + 'ms</span>';
+      if (data.authenticated && data.version) meta += '<span>Version: ' + escapeHtml(data.version) + '</span>';
+      if (data.databases && data.databases.length) meta += '<span>Databases: ' + escapeHtml(data.databases.slice(0,5).join(', ')) + '</span>';
+      if (data.tables !== null && data.tables !== undefined) meta += '<span>Tables: ' + escapeHtml(String(data.tables)) + '</span>';
+      if (data.error) meta += '<span>Error: ' + escapeHtml(data.error) + '</span>';
+
+      result.innerHTML = '<div class="result-title">' + title + '</div><div class="result-detail">' + escapeHtml(data.message || '') + '</div><div class="result-meta">' + meta + '</div>';
+      testedResults[currentDB] = {pass:pass, host:host, port:port, time:new Date().toLocaleTimeString()};
+      updateResultsPanel();
+    }
+
+    function updateResultsPanel() {
+      var res = document.getElementById('results');
+      var tested = Object.keys(testedResults);
+      if (!tested.length) { res.classList.remove('show'); return; }
+      var passed = tested.filter(function(k){ return testedResults[k].pass; }).length;
+      var html = '<strong>Compatibility checks run: ' + tested.length + '</strong><p>' + passed + ' passed and ' + (tested.length - passed) + ' need review.</p>';
+      tested.forEach(function(db) {
+        var r = testedResults[db];
+        html += '<div class="db-detail"><div class="db-detail-header"><span class="db-detail-name">' + DB_CONFIG[db].label + '</span><span class="db-detail-tested ' + (r.pass ? 'pass' : 'fail') + '">' + (r.pass ? 'Passed' : 'Needs review') + '</span></div><div class="input-hint">' + escapeHtml(r.host) + ':' + r.port + ' · Tested ' + r.time + '</div></div>';
+      });
+      res.innerHTML = html;
+      res.classList.add('show');
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, function(ch) {
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+      });
+    }
+
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/online_tools/api/check-connection", "destination": "/api/check-connection" }
+  ]
+}

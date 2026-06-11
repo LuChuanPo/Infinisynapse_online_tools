@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free SQL Complexity Checker for Queries | InfiniSynapse</title>
+  <meta name="description" content="Paste SQL into this free complexity checker to score joins, CTEs, subqueries, window functions, and dialect features with optimization tips.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="InfiniSynapse">
+  <meta property="og:title" content="Free SQL Complexity Checker for Queries | InfiniSynapse">
+  <meta property="og:description" content="Paste SQL into this free complexity checker to score joins, CTEs, subqueries, window functions, and dialect features with optimization tips.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://infinisynapse.com/online_tools/sql-complexity-checker">
+  <meta property="og:image" content="https://infinisynapse.com/og/Infinisynapse_og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@InfiniSynapse">
+  <meta name="twitter:title" content="Free SQL Complexity Checker for Queries | InfiniSynapse">
+  <meta name="twitter:description" content="Paste SQL into this free complexity checker to score joins, CTEs, subqueries, window functions, and dialect features with optimization tips.">
+  <meta name="twitter:image" content="https://infinisynapse.com/og/Infinisynapse_og.png">
+  <link rel="canonical" href="https://infinisynapse.com/online_tools/sql-complexity-checker">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://infinisynapse.com/#organization",
+        "name": "InfiniSynapse",
+        "url": "https://infinisynapse.com/",
+        "logo": "https://infinisynapse.com/logo.png"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://infinisynapse.com/online_tools/sql-complexity-checker#breadcrumb",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://infinisynapse.com/"},
+          {"@type": "ListItem", "position": 2, "name": "Free Tools", "item": "https://infinisynapse.com/online_tools"},
+          {"@type": "ListItem", "position": 3, "name": "SQL Complexity Checker", "item": "https://infinisynapse.com/online_tools/sql-complexity-checker"}
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://infinisynapse.com/online_tools/sql-complexity-checker#software",
+        "name": "SQL Complexity Checker",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "description": "Free SQL complexity checker that scores joins, CTEs, subqueries, window functions, and dialect features.",
+        "url": "https://infinisynapse.com/online_tools/sql-complexity-checker",
+        "datePublished": "2026-06-02",
+        "dateModified": "2026-06-11",
+        "publisher": {"@id": "https://infinisynapse.com/#organization"},
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://infinisynapse.com/online_tools/sql-complexity-checker#faq",
+        "mainEntity": [
+          {"@type": "Question", "name": "What is a good complexity score?", "acceptedAnswer": {"@type": "Answer", "text": "A score of 0-30 is simple (straightforward, easy to maintain), 31-60 is moderate (acceptable for analytical workloads), and 61+ is complex (consider refactoring or adding indexes). Most production analytical queries fall in the 30-50 range."}},
+          {"@type": "Question", "name": "Does this tool execute my query?", "acceptedAnswer": {"@type": "Answer", "text": "No. The checker performs static analysis only. It parses SQL structure, counts patterns, and applies heuristic rules. Your SQL never leaves your browser."}},
+          {"@type": "Question", "name": "Which SQL dialects are supported?", "acceptedAnswer": {"@type": "Answer", "text": "The checker recognizes PostgreSQL, MySQL, BigQuery, Snowflake, and Redshift syntax patterns. It flags dialect-specific functions so you can assess portability."}}
+        ]
+      }
+    ]
+  }
+  </script>
+    <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;color:#1F2937;background:#FFFFFF;font-size:16.5px;line-height:1.75;-webkit-font-smoothing:antialiased}
+    ::selection{background:rgba(91,91,255,0.2)}
+    a{color:#5B5BFF;text-decoration:none}
+    a:hover{color:#5B5BFF}
+   .nav{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:#FFFFFF;
+  border-bottom:1px solid #EEF0F4;
+  padding:12px 0;
+}
+
+.nav-inner{
+  max-width:1320px;
+  margin:0 auto;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  column-gap:36px;
+}
+
+.nav-logo{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+}
+
+.nav-logo-mark{
+  height:26px;
+  display:flex;
+  align-items:center;
+}
+
+.nav-logo-mark img{
+  height:26px;
+  width:auto;
+  display:block;
+}
+
+.nav-logo span{
+  font-size:22px;
+  font-weight:700;
+  color:#0B1220;
+  letter-spacing:-0.03em;
+  line-height:1;
+  white-space:nowrap;
+}
+
+.nav-menu{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:24px;
+  min-width:0;
+  margin:0;
+}
+
+.nav-menu a{
+  color:#344054;
+  font-size:15px;
+  font-weight:500;
+  line-height:1;
+  white-space:nowrap;
+  transition:color 0.15s;
+}
+
+.nav-menu a:hover{
+  color:#111827;
+}
+
+.nav-actions{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:10px;
+  min-width:0;
+}
+
+.nav-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:38px;
+  padding:0 15px;
+  border-radius:9px;
+  border:1px solid #D9DEE8;
+  background:#FFFFFF;
+  color:#25314A;
+  font-size:15px;
+  font-weight:600;
+  line-height:1;
+  white-space:nowrap;
+  box-shadow:none;
+  transition:background 0.15s,border-color 0.15s,transform 0.15s;
+}
+
+a.nav-btn:hover{
+  color:#111827;
+  border-color:#C7CEDA;
+  transform:translateY(-1px);
+}
+
+.nav-btn-soft{
+  background:#F4F5F7;
+  border-color:#F4F5F7;
+  cursor:default;
+}
+
+.nav-btn-primary{
+  background:linear-gradient(135deg,#2459FF,#5337FF);
+  border-color:transparent;
+  color:#FFFFFF;
+  padding:0 18px;
+  box-shadow:0 7px 16px rgba(45,72,255,0.24);
+}
+
+.nav-btn-primary:hover{
+  color:#FFFFFF;
+}
+
+.nav-btn-dark{
+  background:#000000;
+  border-color:#000000;
+  color:#FFFFFF;
+  border-radius:999px;
+  padding:0 18px;
+}
+
+.nav-btn-dark:hover{
+  color:#FFFFFF;
+}
+
+.nav-icon{
+  width:17px;
+  height:17px;
+  flex:0 0 auto;
+}
+
+.nav-chevron{
+  width:15px;
+  height:15px;
+  flex:0 0 auto;
+}
+
+@media(max-width:1280px){
+  .nav-inner{
+    max-width:1180px;
+    column-gap:24px;
+  }
+
+  .nav-menu{
+    gap:18px;
+  }
+
+  .nav-menu a,
+  .nav-btn{
+    font-size:14px;
+  }
+
+  .nav-btn{
+    min-height:36px;
+    padding:0 12px;
+  }
+
+  .nav-btn-primary,
+  .nav-btn-dark{
+    padding:0 14px;
+  }
+}
+
+@media(max-width:980px){
+  .nav-inner{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    row-gap:14px;
+  }
+
+  .nav-logo{
+    width:100%;
+    justify-content:center;
+  }
+
+  .nav-menu,
+  .nav-actions{
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+}
+    .wrap{max-width:1024px;margin:0 auto;padding:48px 24px}
+    .breadcrumb{font-size:13px;color:#9CA3AF;margin-bottom:8px}
+    .breadcrumb a{color:#6B7280}
+    .breadcrumb a:hover{color:#0A0A0A}
+    .breadcrumb span{margin:0 4px}
+    h1{font-size:2.2rem;font-weight:700;color:#0A0A0A;letter-spacing:-0.02em;line-height:1.25;margin-bottom:12px}
+    h2{font-size:1.4rem;font-weight:700;color:#0A0A0A;margin:40px 0 16px}
+    h3{font-size:1.1rem;font-weight:600;color:#0A0A0A;margin:24px 0 10px}
+    p{color:#374151;margin-bottom:16px;line-height:1.75}
+    .meta-desc{font-size:1.05rem;color:#6B7280;margin-bottom:32px;line-height:1.7}
+    .tool-ui{background:#F9FAFB;border:1.5px solid #E5E7EB;border-radius:16px;padding:32px;margin:24px 0}
+    .tool-ui label{display:block;font-size:14px;font-weight:600;color:#374151;margin-bottom:8px}
+    .tool-ui textarea,.tool-ui input[type="text"],.tool-ui select{width:100%;padding:12px 16px;border:1.5px solid #D1D5DB;border-radius:8px;font-size:15px;font-family:inherit;background:#FFF;transition:border-color 0.15s;resize:vertical}
+    .tool-ui textarea:focus,.tool-ui input:focus,.tool-ui select:focus{outline:none;border-color:#5B5BFF;box-shadow:0 0 0 3px rgba(91,91,255,0.08)}
+    .tool-ui textarea{min-height:100px;font-family:"SF Mono","Fira Code","Cascadia Code",monospace;font-size:14px}
+    .tool-output{background:#0A0A0A;color:#E5E7EB;border-radius:10px;padding:20px;margin-top:16px;font-family:"SF Mono","Fira Code","Cascadia Code",monospace;font-size:14px;line-height:1.6;white-space:pre-wrap;overflow-x:auto;display:none}
+    .tool-output.show{display:block}
+    .btn-run{background:#5B5BFF;color:#FFF;border:none;padding:12px 28px;border-radius:8px;font-weight:600;font-size:15px;cursor:pointer;transition:opacity 0.15s;display:inline-flex;align-items:center;gap:8px}
+    .btn-run:hover{opacity:0.9}
+    .btn-run:disabled{opacity:0.5;cursor:not-allowed}
+    .result-card{background:#FFF;border:1px solid #E5E7EB;border-radius:12px;padding:24px;margin-top:16px;display:none}
+    .result-card.show{display:block}
+    .result-card .big-num{font-size:2.5rem;font-weight:700;color:#5B5BFF;line-height:1.1}
+    .result-card .label{font-size:14px;color:#6B7280}
+    .complexity-bar{height:10px;border-radius:5px;background:#E5E7EB;margin:12px 0;overflow:hidden}
+    .complexity-fill{height:100%;border-radius:5px;transition:width 0.5s ease}
+    .complexity-fill.low{background:#10B981}
+    .complexity-fill.medium{background:#F59E0B}
+    .complexity-fill.high{background:#EF4444}
+    .score-row{display:flex;align-items:center;gap:12px;margin:8px 0}
+    .score-label{font-size:14px;font-weight:500;color:#374151;width:160px;flex-shrink:0}
+    .score-bar{flex:1;height:8px;border-radius:4px;background:#E5E7EB;overflow:hidden}
+    .score-fill{height:100%;border-radius:4px;transition:width 0.5s ease}
+    .score-val{font-size:14px;font-weight:600;color:#0A0A0A;width:42px;text-align:right}
+    .compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+    .compare-table th{background:#F9FAFB;padding:12px 16px;text-align:left;font-weight:600;color:#374151;border-bottom:2px solid #E5E7EB;font-size:13px}
+    .compare-table td{padding:12px 16px;border-bottom:1px solid #E5E7EB;color:#374151}
+    .compare-table tr:hover td{background:rgba(91,91,255,0.02)}
+    .rank-badge{display:inline-flex;width:24px;height:24px;border-radius:50%;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+    .rank-1{background:#FBBF24;color:#0A0A0A}
+    .rank-2{background:#D1D5DB;color:#0A0A0A}
+    .rank-3{background:#F59E0B;color:#FFF}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:16px 0}
+    .step-box{background:#FFF;border:1px solid #E5E7EB;border-radius:12px;padding:20px;text-align:center}
+    .step-num{display:inline-flex;width:32px;height:32px;border-radius:50%;background:#0A0A0A;color:#FFF;align-items:center;justify-content:center;font-size:15px;font-weight:700;margin-bottom:10px}
+    .step-box h4{font-size:14px;font-weight:600;color:#0A0A0A;margin-bottom:4px}
+    .step-box p{font-size:13px;color:#6B7280;line-height:1.6}
+    .faq-item{border-bottom:1px solid #E5E7EB;padding:16px 0}
+    .faq-q{font-weight:600;color:#0A0A0A;font-size:15px;margin-bottom:6px}
+    .faq-a{color:#6B7280;font-size:14px;line-height:1.7}
+    .cta-block{background:linear-gradient(135deg,#0A0A0A 0%,#1F2937 100%);border-radius:16px;padding:40px;text-align:center;margin:40px 0}
+    .cta-block h2{color:#FFF;margin-top:0}
+    .cta-block p{color:#D1D5DB}
+    .btn-cta{display:inline-flex;align-items:center;gap:8px;background:#5B5BFF;color:#FFF;padding:14px 36px;border-radius:8px;font-weight:600;font-size:16px;transition:opacity 0.15s}
+    .btn-cta:hover{opacity:0.9;color:#FFF}
+    .related-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:16px 0 40px}
+    .related-tool{background:#FFF;border:1px solid #E5E7EB;border-radius:10px;padding:18px;font-size:14px;transition:all 0.15s}
+    .related-tool:hover{border-color:#5B5BFF;box-shadow:0 2px 12px rgba(91,91,255,0.05)}
+    .related-tool .rt-name{font-weight:600;color:#0A0A0A;margin-bottom:4px}
+    .related-tool .rt-desc{color:#6B7280;font-size:13px}
+    .compat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin:16px 0}
+    .compat-item{display:flex;align-items:center;gap:10px;padding:14px 16px;border:1.5px solid #E5E7EB;border-radius:10px;cursor:pointer;transition:all 0.15s;font-size:14px;font-weight:500}
+    .compat-item.selected{border-color:#5B5BFF;background:rgba(91,91,255,0.04)}
+    .compat-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+    .compat-dot.full{background:#10B981}
+    .compat-dot.partial{background:#F59E0B}
+    .compat-dot.planned{background:#9CA3AF}
+    .legend{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:#6B7280;margin:16px 0}
+    .legend-item{display:flex;align-items:center;gap:6px}
+    .tools-hero{text-align:center;padding:0 0 48px}
+    .tools-hero h1{font-size:2.5rem}
+    .tools-hero .hero-sub{font-size:1.1rem;color:#6B7280;max-width:620px;margin:0 auto 32px}
+    .cat-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:40px;justify-content:center}
+    .cat-tab{padding:8px 18px;border-radius:20px;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #E5E7EB;background:#FFF;color:#6B7280;transition:all 0.15s}
+    .cat-tab.active,.cat-tab:hover{background:#0A0A0A;color:#FFF;border-color:#0A0A0A}
+    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+    .tool-card{background:#FFF;border:1px solid #E5E7EB;border-radius:12px;padding:28px;transition:all 0.2s;display:flex;flex-direction:column}
+    .tool-card:hover{border-color:#5B5BFF;box-shadow:0 4px 24px rgba(91,91,255,0.06);transform:translateY(-2px)}
+    .tool-card-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+    .tool-card-icon.tester{background:rgba(91,91,255,0.1);color:#5B5BFF}
+    .tool-card-icon.calculator{background:rgba(16,185,129,0.1);color:#10B981}
+    .tool-card-icon.checker{background:rgba(245,158,11,0.1);color:#F59E0B}
+    .tool-card-icon.benchmark{background:rgba(139,92,246,0.1);color:#8B5CF6}
+    .tool-card-icon.compat{background:rgba(59,130,246,0.1);color:#3B82F6}
+    .tool-card h3{font-size:1.1rem;margin:0 0 8px}
+    .tool-card .tool-card-desc{font-size:14px;color:#6B7280;line-height:1.6;flex:1;margin-bottom:16px}
+    .tool-card .tool-card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+    .tool-tag{font-size:12px;padding:3px 10px;border-radius:12px;background:#F3F4F6;color:#6B7280}
+    .tool-card .tool-card-link{font-size:14px;font-weight:600;color:#5B5BFF;display:inline-flex;align-items:center;gap:4px}
+    .tool-card .tool-card-link:hover{text-decoration:underline}
+    .how-use{background:#F9FAFB;border-radius:16px;padding:40px;margin-bottom:48px}
+    .how-use h2{font-size:1.5rem;margin:0 0 8px}
+    .how-use .how-sub{color:#6B7280;margin-bottom:32px}
+    .social-proof{text-align:center;margin-bottom:48px}
+    .social-proof .proof-label{font-size:13px;font-weight:600;color:#9CA3AF;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px}
+    .roi-summary{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0}
+    .roi-card{flex:1;min-width:180px;background:#F9FAFB;border-radius:12px;padding:20px;text-align:center}
+    .roi-card .roi-num{font-size:2rem;font-weight:700;color:#5B5BFF}
+    .roi-card .roi-label{font-size:13px;color:#6B7280;margin-top:4px}
+    .result-metric{display:inline-flex;flex-direction:column;align-items:center;padding:16px 28px;margin:8px}
+    .footer{background:#F9FAFB;border-top:1px solid #E5E7EB;padding:48px 24px;margin-top:60px}
+    .footer-inner{max-width:1024px;margin:0 auto}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px}
+    .footer h4{font-size:12px;font-weight:600;color:#6B7280;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
+    .footer-links{display:flex;flex-direction:column;gap:10px;font-size:14px}
+    .footer-links a{color:#6B7280;transition:color 0.15s}
+    .footer-links a:hover{color:#0A0A0A}
+    .footer-bottom{border-top:1px solid #E5E7EB;padding-top:24px;display:flex;justify-content:space-between;font-size:13px;color:#9CA3AF}
+    @media(max-width:720px){
+      h1{font-size:1.75rem}
+      .tools-grid{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr}
+      .related-tools{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .nav-links a:not(.nav-cta){display:none}
+      .wrap{padding:32px 20px}
+      .tool-ui{padding:20px}
+      .compare-table{font-size:12px}
+      .compare-table th,.compare-table td{padding:8px}
+      .roi-summary{flex-direction:column}
+      .result-metric{padding:12px 20px}
+    }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://infinisynapse.com" class="nav-logo" aria-label="InfiniSynapse home">
+      <span class="nav-logo-mark">
+        <img src="https://infinisynapse.com/logo.png" alt="InfiniSynapse">
+      </span>
+      <span>InfiniSynapse</span>
+    </a>
+
+    <div class="nav-menu" aria-label="Primary navigation">
+      <a href="https://infinisynapse.com/#vision">Vision</a>
+      <a href="https://infinisynapse.com/#features">Features</a>
+      <a href="https://infinisynapse.com/tools">Agent Tools</a>
+      <a href="https://infinisynapse.com/en/docs">Docs</a>
+      <a href="https://infinisynapse.com/en/blog">Blog</a>
+      <a href="https://infinisynapse.com/#contact">Contact</a>
+    </div>
+
+    <div class="nav-actions">
+      <span class="nav-btn nav-btn-soft" aria-label="Language selector placeholder">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          <path d="M3 12h18M12 3c2.2 2.4 3.3 5.4 3.3 9S14.2 18.6 12 21M12 3C9.8 5.4 8.7 8.4 8.7 12S9.8 18.6 12 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        EN
+        <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+
+      <a href="https://infinisynapse.com/download" class="nav-btn">Download</a>
+
+      <a href="https://infinisynapse.com/book-demo" class="nav-btn nav-btn-primary">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 3v4M16 3v4M4 10h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Book Demo
+      </a>
+
+      <a href="https://app.infinisynapse.com/" class="nav-btn nav-btn-dark">Try Online</a>
+
+      <a href="https://app.infinisynapse.com/login" class="nav-btn">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Login
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <div class="wrap">
+    <nav class="breadcrumb">
+      <a href="https://infinisynapse.com">Home</a><span>&#8250;</span>
+      <a href="https://infinisynapse.com/online_tools">Free Tools</a><span>&#8250;</span>
+      SQL Complexity Checker
+    </nav>
+
+    <h1>SQL Complexity Checker</h1>
+    <p class="meta-desc">Paste any SQL query to analyze its complexity. Detects nested subqueries, CTEs, window functions, joins, and custom dialects &mdash; with optimization tips for each dimension.</p>
+
+    <div class="tool-ui">
+      <label for="sql-input">Paste your SQL query:</label>
+      <textarea id="sql-input" placeholder="Paste your SQL here...">WITH regional_sales AS (
+    SELECT
+        r.region_name,
+        DATE_TRUNC(''quarter'', o.order_date) AS quarter,
+        SUM(oi.quantity * oi.unit_price) AS revenue,
+        COUNT(DISTINCT o.customer_id) AS unique_customers
+    FROM orders o
+    INNER JOIN order_items oi ON o.id = oi.order_id
+    INNER JOIN products p ON oi.product_id = p.id
+    INNER JOIN customers c ON o.customer_id = c.id
+    INNER JOIN regions r ON c.region_id = r.id
+    WHERE o.status != ''cancelled''
+    GROUP BY r.region_name, DATE_TRUNC(''quarter'', o.order_date)
+),
+ranked AS (
+    SELECT *,
+        RANK() OVER (PARTITION BY quarter ORDER BY revenue DESC) AS rank,
+        LAG(revenue) OVER (PARTITION BY region_name ORDER BY quarter) AS prev_q_revenue
+    FROM regional_sales
+)
+SELECT
+    region_name,
+    quarter,
+    revenue,
+    unique_customers,
+    ROUND(revenue / NULLIF(unique_customers, 0), 2) AS arpu,
+    rank,
+    prev_q_revenue,
+    ROUND(((revenue - prev_q_revenue) / NULLIF(prev_q_revenue, 0)) * 100, 1) AS qoq_growth_pct
+FROM ranked
+WHERE rank <= 5
+ORDER BY quarter DESC, rank ASC;</textarea>
+      <button class="btn-run" onclick="analyzeSQL()" id="check-btn">&#x1F50D; Analyze Complexity</button>
+    </div>
+
+    <div class="result-card" id="results"></div>
+
+    <h2>How to Use</h2>
+    <div class="steps">
+      <div class="step-box"><div class="step-num">1</div><h4>Paste Your SQL</h4><p>Copy any SQL query &mdash; SELECT, INSERT, or complex analytical queries with CTEs and window functions.</p></div>
+      <div class="step-box"><div class="step-num">2</div><h4>Click Analyze</h4><p>The checker scans for subqueries, CTEs, joins, window functions, aggregations, and dialect-specific features.</p></div>
+      <div class="step-box"><div class="step-num">3</div><h4>Get Optimization Tips</h4><p>Receive a complexity score with actionable suggestions to simplify, optimize, or refactor your query.</p></div>
+    </div>
+
+    <h2>What We Analyze</h2>
+    <p>The <strong>SQL Complexity Checker</strong> evaluates queries across six dimensions:</p>
+
+    <table class="compare-table">
+      <tr><th>Dimension</th><th>What It Measures</th><th>Why It Matters</th></tr>
+      <tr><td><strong>Subquery Depth</strong></td><td>Nested SELECTs and derived tables</td><td>Deep nesting hurts readability and optimizer performance</td></tr>
+      <tr><td><strong>CTE Usage</strong></td><td>WITH clauses and recursive CTEs</td><td>CTEs improve readability but can materialize unexpectedly</td></tr>
+      <tr><td><strong>Join Complexity</strong></td><td>Number and types of JOINs</td><td>Many joins increase execution time exponentially</td></tr>
+      <tr><td><strong>Window Functions</strong></td><td>RANK, LAG, ROW_NUMBER, etc.</td><td>Window functions add sorting overhead &mdash; check indexing</td></tr>
+      <tr><td><strong>Aggregation Depth</strong></td><td>GROUP BY with nested aggregates</td><td>Multi-level aggregation can hide performance pitfalls</td></tr>
+      <tr><td><strong>Dialect Features</strong></td><td>DATE_TRUNC, NULLIF, COALESCE, etc.</td><td>Vendor-specific functions limit portability</td></tr>
+    </table>
+
+    <h2>FAQ</h2>
+    <div class="faq-item"><div class="faq-q">What is a "good" complexity score?</div><div class="faq-a">A score of 0-30 is simple (straightforward, easy to maintain), 31-60 is moderate (acceptable for analytical workloads), and 61+ is complex (consider refactoring or adding indexes). Most production analytical queries fall in the 30-50 range.</div></div>
+    <div class="faq-item"><div class="faq-q">Does this tool execute my query?</div><div class="faq-a">No. The checker performs static analysis only &mdash; it parses SQL structure, counts patterns, and applies heuristic rules. Your SQL never leaves your browser.</div></div>
+    <div class="faq-item"><div class="faq-q">Which SQL dialects are supported?</div><div class="faq-a">The checker recognizes PostgreSQL, MySQL, BigQuery, Snowflake, and Redshift syntax patterns. It flags dialect-specific functions so you can assess portability.</div></div>
+
+    <h2>Methodology and Disclosure</h2>
+    <p>This SQL complexity checker is maintained by InfiniSynapse. Links to the InfiniSynapse app are first-party product links, and the score is a static heuristic based on visible SQL patterns.</p>
+    <p>The tool was last reviewed on June 11, 2026. It does not execute SQL, inspect indexes, or read database statistics, so use the result as a review aid rather than a substitute for an execution plan.</p>
+
+    <section class="cta-block">
+      <h2>Ready for Agentic Analytics?</h2>
+      <p>InfiniSynapse plans, executes, and verifies multi-step data analysis across PostgreSQL, MySQL, BigQuery, CSV files, and knowledge bases — with an AI agent that explains its reasoning at every step.</p>
+      <a href="https://infinisynapse.com/app/" class="btn-cta">🚀 Try InfiniSynapse Free →</a>
+    </section>
+
+    <h2>Related Tools</h2>
+    <div class="related-tools">
+      <a href="https://infinisynapse.com/online_tools/nl2sql-query-tester" class="related-tool"><div class="rt-name">🧪 NL2SQL Query Tester</div><div class="rt-desc">Convert English to SQL instantly</div></a>
+      <a href="https://infinisynapse.com/online_tools/roi-calculator" class="related-tool"><div class="rt-name">📊 ROI Calculator</div><div class="rt-desc">Estimate analytics cost savings</div></a>
+      <a href="https://infinisynapse.com/online_tools/sql-complexity-checker" class="related-tool"><div class="rt-name">🔍 SQL Complexity Checker</div><div class="rt-desc">Analyze query complexity</div></a>
+      <a href="https://infinisynapse.com/online_tools/db-compatibility-checker" class="related-tool"><div class="rt-name">🔌 DB Compatibility Checker</div><div class="rt-desc">Check your database stack</div></a>
+    </div>
+
+    <script>
+    function analyzeSQL() {
+      var sql = document.getElementById('sql-input').value;
+      var results = document.getElementById('results');
+      var ctes = (sql.match(/\bWITH\b\s+\w+\s+AS\s*\(/gi) || []).length;
+      var subqueries = (sql.match(/\(\s*SELECT\b/gi) || []).length;
+      var joins = (sql.match(/\b(INNER|LEFT|RIGHT|FULL|CROSS)?\s*JOIN\b/gi) || []).length;
+      var windows = (sql.match(/\b(RANK|DENSE_RANK|ROW_NUMBER|LAG|LEAD|FIRST_VALUE|LAST_VALUE|NTILE)\s*\(/gi) || []).length;
+      var groupBy = (sql.match(/\bGROUP\s+BY\b/gi) || []).length;
+      var having = (sql.match(/\bHAVING\b/gi) || []).length;
+      var unions = (sql.match(/\bUNION\b/gi) || []).length;
+      var caseWhen = (sql.match(/\bCASE\b/gi) || []).length;
+      var dialect = (sql.match(/\b(DATE_TRUNC|NULLIF|COALESCE|GREATEST|LEAST|ARRAY_AGG|STRING_AGG|LISTAGG|QUALIFY|ILIKE|REGEXP_REPLACE|DATEADD|DATEDIFF)\b/gi) || []).length;
+      var score = Math.min(100, subqueries * 8 + ctes * 5 + joins * 6 + windows * 5 + groupBy * 3 + having * 3 + unions * 4 + caseWhen * 2 + dialect * 1);
+      var level, color, tips;
+      if (score <= 30) { level = 'Low'; color = 'low'; tips = '&#x2705; Query is straightforward and easy to maintain.<br>&#x2705; Good candidate for frequent execution.<br>&#x1F4A1; Consider adding comments for complex business logic.'; }
+      else if (score <= 60) { level = 'Moderate'; color = 'medium'; tips = '&#x26A0;&#xFE0F; Acceptable for analytical workloads.<br>&#x1F4A1; Ensure CTEs are indexed if materialized.<br>&#x1F4A1; Review JOIN paths for potential cartesian products.<br>&#x1F4A1; Check if window functions have matching indexes.'; }
+      else { level = 'High'; color = 'high'; tips = '&#x1F534; Consider refactoring into smaller queries.<br>&#x1F534; Deep nesting may confuse the query optimizer.<br>&#x1F534; Review execution plan for bottlenecks.<br>&#x1F534; Consider materialized views for repeated patterns.<br>&#x1F4A1; Break into multiple CTEs for readability.'; }
+      var html = '<h3 style="margin-top:0">Complexity Score: <span style="color:' + (score<=30?'#10B981':score<=60?'#F59E0B':'#EF4444') + '">' + score + '/100</span> &mdash; ' + level + '</h3>';
+      html += '<div class="complexity-bar"><div class="complexity-fill ' + color + '" style="width:' + score + '%"></div></div>';
+      html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:20px 0">';
+      html += '<div class="result-metric"><div class="big-num" style="font-size:1.5rem">' + subqueries + '</div><div class="label">Subqueries</div></div>';
+      html += '<div class="result-metric"><div class="big-num" style="font-size:1.5rem">' + ctes + '</div><div class="label">CTEs</div></div>';
+      html += '<div class="result-metric"><div class="big-num" style="font-size:1.5rem">' + joins + '</div><div class="label">JOINs</div></div>';
+      html += '<div class="result-metric"><div class="big-num" style="font-size:1.5rem">' + windows + '</div><div class="label">Window Fns</div></div>';
+      html += '<div class="result-metric"><div class="big-num" style="font-size:1.5rem">' + (groupBy+having) + '</div><div class="label">Aggregations</div></div>';
+      html += '<div class="result-metric"><div class="big-num" style="font-size:1.5rem">' + (unions+caseWhen) + '</div><div class="label">Other</div></div>';
+      html += '</div><h3>Optimization Tips</h3><p style="line-height:1.9">' + tips + '</p>';
+      if (dialect > 0) { html += '<p style="color:#F59E0B;font-size:14px">&#x26A0;&#xFE0F; Detected ' + dialect + ' dialect-specific function(s). Review portability if migrating databases.</p>'; }
+      results.innerHTML = html;
+      results.classList.add('show');
+    }
+    document.addEventListener('DOMContentLoaded', analyzeSQL);
+    </script>
+  </div>
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div><h4>InfiniSynapse</h4><div class="footer-links"><span style="color:#6B7280;font-size:14px">Agentic analytics platform. From question to insight, in seconds.</span></div></div>
+        <div><h4>Product</h4><div class="footer-links"><a href="https://infinisynapse.com/#features">Features</a><a href="https://infinisynapse.com/online_tools">Tools</a><a href="https://infinisynapse.com/app/">Try Online</a><a href="https://infinisynapse.com/download">Download</a></div></div>
+        <div><h4>Resources</h4><div class="footer-links"><a href="https://infinisynapse.com/zh/docs">Documentation</a><a href="https://infinisynapse.com/zh/blog">Blog</a><a href="https://infinisynapse.com/#vision">Vision</a></div></div>
+        <div><h4>Company</h4><div class="footer-links"><a href="https://infinisynapse.com/#contact">Contact</a><a href="https://infinisynapse.com/careers">Careers</a></div></div>
+      </div>
+      <div class="footer-bottom"><span>&copy; 2026 InfiniSynapse. All rights reserved.</span><span>From question to insight, in seconds.</span></div>
+    </div>
+  </footer>
+</body>
+</html>

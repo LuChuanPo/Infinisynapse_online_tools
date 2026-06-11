@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://infinisynapse.com/online_tools/sitemap.xml
