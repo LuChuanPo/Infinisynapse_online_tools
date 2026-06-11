@@ -578,7 +578,7 @@ a.nav-btn:hover{
     function clearInput(){document.getElementById('md-input').value='';renderPreview();}
     function downloadPDF(){
       var html=mdToHtml(document.getElementById('md-input').value);
-      var css='body{font-family:-apple-system,Segoe UI,Arial,sans-serif;max-width:760px;margin:40px auto;padding:0 28px;color:#1F2937;line-height:1.7}h1{font-size:26px}h2{font-size:20px}h3{font-size:17px}code{background:#f3f4f6;padding:2px 6px;border-radius:4px;font-family:Consolas,monospace}pre{background:#0a0a0a;color:#e5e7eb;padding:16px;border-radius:8px;overflow:auto}pre code{background:none;color:inherit;padding:0}blockquote{border-left:3px solid #5B5BFF;padding:8px 16px;color:#555;margin:0 0 14px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px}img{max-width:100%}';
+      var css='body{font-family:-apple-system,Segoe UI,Arial,sans-serif;max-width:760px;margin:40px auto;padding:0 28px;color:#1F2937;line-height:1.7}h2{font-size:20px}h3{font-size:17px}code{background:#f3f4f6;padding:2px 6px;border-radius:4px;font-family:Consolas,monospace}pre{background:#0a0a0a;color:#e5e7eb;padding:16px;border-radius:8px;overflow:auto}pre code{background:none;color:inherit;padding:0}blockquote{border-left:3px solid #5B5BFF;padding:8px 16px;color:#555;margin:0 0 14px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px}img{max-width:100%}';
       var w=window.open('','_blank');
       if(!w){alert('Please allow pop-ups to export the PDF.');return;}
       w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Markdown export</title><style>'+css+'</style></head><body>'+html+'</body></html>');
