@@ -536,7 +536,7 @@ a.nav-btn:hover{
     </div>
 
     <script>
-    var SAMPLE = "# Quarterly Business Review\n\n## Executive Summary\nRevenue grew **18%** quarter over quarter, driven by *enterprise* adoption.\n\n## Key Metrics\n- New customers: 1,240\n- Net revenue retention: 117%\n- Average deal size: $14,500\n\n## Pipeline by Stage\n\n| Stage | Deals | Value |\n| --- | --- | --- |\n| Discovery | 48 | $620K |\n| Proposal | 22 | $410K |\n| Closed Won | 15 | $218K |\n\n> Priority next quarter: shorten the proposal-to-close cycle.\n\n```\nSELECT stage, COUNT(*) FROM pipeline GROUP BY stage;\n```\n";
+    var SAMPLE = "## Quarterly Business Review\n\n### Executive Summary\nRevenue grew **18%** quarter over quarter, driven by *enterprise* adoption.\n\n### Key Metrics\n- New customers: 1,240\n- Net revenue retention: 117%\n- Average deal size: $14,500\n\n### Pipeline by Stage\n\n| Stage | Deals | Value |\n| --- | --- | --- |\n| Discovery | 48 | $620K |\n| Proposal | 22 | $410K |\n| Closed Won | 15 | $218K |\n\n> Priority next quarter: shorten the proposal-to-close cycle.\n\n```\nSELECT stage, COUNT(*) FROM pipeline GROUP BY stage;\n```\n";
     function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
     function inlineMd(t){
       t=esc(t);
@@ -573,7 +573,7 @@ a.nav-btn:hover{
       }
       return H;
     }
-    function renderPreview(){document.getElementById('md-preview').innerHTML=mdToHtml(document.getElementById('md-input').value);}
+    function renderPreview(){var html=mdToHtml(document.getElementById('md-input').value);html=html.replace(/<(\/?)h1>/g,'<$1h2>');document.getElementById('md-preview').innerHTML=html;}
     function loadSample(){document.getElementById('md-input').value=SAMPLE;renderPreview();}
     function clearInput(){document.getElementById('md-input').value='';renderPreview();}
     function downloadPDF(){
