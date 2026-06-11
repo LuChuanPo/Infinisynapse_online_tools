@@ -578,7 +578,7 @@ a.nav-btn:hover{
       result.innerHTML = '<div class="result-detail">Connecting to ' + escapeHtml(host) + ':' + port + '...</div>';
 
       try {
-        var resp = await fetch('/online_tools/api/check-connection', {
+        var resp = await fetch('/api/check-connection', {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({
